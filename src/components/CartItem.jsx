@@ -1,5 +1,13 @@
 export default function CartItem(props) {
-  const { cartItem } = props;
+  const { cartItem, onUpdateQty, onRemoveItem } = props;
+
+  const updateQty = (inc) => {
+    onUpdateQty(cartItem.item.id, inc);
+  } 
+
+  const removeItem = () => {
+    onRemoveItem(cartItem.item.id);
+  }
 
   return (
     <div className="flex gap-6">
@@ -23,22 +31,24 @@ export default function CartItem(props) {
             )}
           </div>
           <div>
-            <div class="rounded-md" role="group">
+            <div className="rounded-md" role="group">
               <button
                 type="button"
-                class="py-2 px-4 text-2xl font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                className="py-2 px-4 text-2xl font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                onClick={() => updateQty(-1)}
               >
                 -
               </button>
               <button
                 type="button"
-                class="py-2 px-4 text-2xl font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                className="py-2 px-4 text-2xl font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
               >
                 {cartItem.quantity}
               </button>
               <button
                 type="button"
-                class="py-2 px-4 text-2xl font-medium text-gray-900 bg-white rounded-r-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                className="py-2 px-4 text-2xl font-medium text-gray-900 bg-white rounded-r-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                onClick={() => updateQty(+1)}
               >
                 +
               </button>
@@ -52,7 +62,10 @@ export default function CartItem(props) {
         </div>
         <div className="w-full flex justify-between">
           <div className="flex gap-4">
-            <button className="hover:text-blue-500">
+            <button 
+                className="hover:text-blue-500"
+                onClick={removeItem}
+                >
               <i className="fa-solid fa-trash"></i>{" "}
               <span>{"Remove Item".toUpperCase()}</span>
             </button>
